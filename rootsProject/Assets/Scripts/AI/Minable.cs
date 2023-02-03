@@ -19,11 +19,12 @@ public class Minable : MonoBehaviour
         
     }
 
-    public void ApplyDamage(float damage)
+    virtual public void ApplyDamage(float damage)
     {
         health -= damage;
         if(health <= 0)
         {
+            TreeGenerator.instance?.CheckForMissing(transform);
             Destroy(gameObject);
         }
     }

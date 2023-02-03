@@ -93,11 +93,11 @@ public class TreeGenerator : MonoBehaviour
         var playerDirection = new Vector3(playerInput.x, 0F, playerInput.y).normalized;
 
         Debug.DrawRay(endpoint.position, playerDirection * distance, Color.red);
-        Ray ray = new Ray(endpoint.position, playerDirection * distance);
         RaycastHit[] rayhits = Physics.RaycastAll(endpoint.position, playerDirection * distance, distance);
+
+        var chunkLogic = endpoint.gameObject.GetComponentInParent<TreeChunkLogic>();
         foreach (var hit in rayhits)
         {
-            var chunkLogic = endpoint.gameObject.GetComponentInParent<TreeChunkLogic>();
             if (chunkLogic == null) return false;
             else if (hit.transform.gameObject != chunkLogic.RootObject) return false;
         }
@@ -110,6 +110,8 @@ public class TreeGenerator : MonoBehaviour
         {
             submerged = false;
             submergedUI.SetActive(false);
+
+            // check for skewered here
 
             yield return submergeCooldown;
         }
@@ -126,24 +128,28 @@ public class TreeGenerator : MonoBehaviour
 
     IEnumerator ToggleReset()
     {
+        ResetPos();
+        yield return resetCooldown;
+    }
+
+    void ResetPos()
+    {
         spawnpoint = returnPoint;
         hoverUI.position = new Vector3(spawnpoint.transform.position.x, hoverUI.position.y, spawnpoint.transform.position.z);
-
-        yield return resetCooldown;
     }
 
     public void CheckForMissing(Transform destroyedRoot)    // use this when a root is destroyed 
     {
         if (destroyedRoot == spawnpoint)
         {
-            spawnpoint = returnPoint;
+            ResetPos();
             return;
         }
 
         foreach (var transform in destroyedRoot.GetComponentsInChildren<Transform>())
             if (transform == spawnpoint)
             {
-                spawnpoint = returnPoint;
+                ResetPos();
                 return;
             }
     }

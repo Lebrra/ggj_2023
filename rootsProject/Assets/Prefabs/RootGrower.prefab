@@ -49,7 +49,7 @@ MonoBehaviour:
   growTime: 0.1
   inputSensitivity: 0.05
   spawnpoint: {fileID: 4976119742841433213}
-  partPrefab: {fileID: 7612207794317389092, guid: 6c05b4d8586d82243919530a1764a088, type: 3}
+  partPrefab: {fileID: 7841136200311308636, guid: 8bdeb908233dda24b9c6fd06fc6e8b7b, type: 3}
   hoverUI: {fileID: 4030133979477747432}
   submergedUI: {fileID: 4976119743645568583}
   submergeCooldown: 3

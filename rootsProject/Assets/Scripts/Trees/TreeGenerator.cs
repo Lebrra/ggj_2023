@@ -81,7 +81,7 @@ public class TreeGenerator : MonoBehaviour
         if (!CheckAhead(spawnpoint, playerInput, partPrefab.Length)) yield break;
 
         // spawn new part based using rotation
-        var newPart = Instantiate(partPrefab, spawnpoint.position, Quaternion.Euler(0, degree, 0));
+        var newPart = Instantiate(partPrefab, spawnpoint.position, Quaternion.Euler(Random.Range(0F, 360F), degree, 0));
         spawnpoint = newPart.EndtPoint;
 
         // wait to spawn another

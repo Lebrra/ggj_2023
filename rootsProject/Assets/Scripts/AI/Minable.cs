@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Minable : MonoBehaviour
 {
-    // Start is called before the first frame update
 
-    [field: SerializeField]
-    public float timeToMine;
+    [SerializeField]
+    public float health;
+
     void Start()
     {
         
@@ -17,5 +17,14 @@ public class Minable : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ApplyDamage(float damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

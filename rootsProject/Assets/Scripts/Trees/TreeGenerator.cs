@@ -9,6 +9,7 @@ public class TreeGenerator : MonoBehaviour
 
     [SerializeField]
     float growTime = 0.1F;
+    float currentSpeed = 0.1F;
     [SerializeField]
     float inputSensitivity = 0.05F;
 
@@ -47,12 +48,14 @@ public class TreeGenerator : MonoBehaviour
 
     private void FixedUpdate()
     {
+        currentSpeed = growTime * 0.7F * GameStateManager.CurrentNormalizedGameTime + 0.04F;
+
         if (Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")) >= inputSensitivity)
         {
             if (submerged)
             {
                 // move the identifier
-                submergedUI.transform.position += (new Vector3(Input.GetAxis("Horizontal"), 0F, Input.GetAxis("Vertical")) * growTime);
+                submergedUI.transform.position += (new Vector3(Input.GetAxis("Horizontal"), 0F, Input.GetAxis("Vertical")) * currentSpeed);
                 hoverUI.position = new Vector3(submergedUI.transform.position.x, hoverUI.position.y, submergedUI.transform.position.z);
             }
             else if (!growRoot.Exists())
@@ -85,7 +88,7 @@ public class TreeGenerator : MonoBehaviour
         spawnpoint = newPart.EndtPoint;
 
         // wait to spawn another
-        yield return growTime;
+        yield return currentSpeed;
     }
 
     bool CheckAhead(Transform endpoint, Vector2 playerInput, float distance)

@@ -8,4 +8,7 @@ public class TreeChunkLogic : MonoBehaviour
     Transform startPoint;
     [SerializeField]
     Transform endPoint;
+
+    public Transform StartPoint { get => startPoint; }
+    public Transform EndtPoint { get => endPoint; }
 }

@@ -15,16 +15,33 @@ public class PartGeneration : MonoBehaviour
     [SerializeField]
     TreeChunkLogic partPrefab;
 
+    [SerializeField]
+    GameObject submergedUI;
+
     Routine growRoot;
+
+    [SerializeField]
+    float submergeCooldown = 3F;
+    bool submerged = false;
+    Routine submergeDelay;
 
     private void FixedUpdate()
     {
         if (Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")) >= inputSensitivity)
         {
-            if (!growRoot.Exists())
+            if (submerged)
+            {
+                // move the identifier
+                submergedUI.transform.position += (new Vector3(Input.GetAxis("Horizontal"), 0F, Input.GetAxis("Vertical")) * growTime);
+            }
+            else if (!growRoot.Exists())
             {
                 growRoot.Replace(SpawnRootPart(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"))));
             }
+        }
+        if (Input.GetButton("Jump"))
+        {
+            if (!submergeDelay.Exists()) submergeDelay.Replace(ToggleSubmerge());
         }
     }
 
@@ -59,5 +76,25 @@ public class PartGeneration : MonoBehaviour
             else if (hit.transform.gameObject != chunkLogic.RootObject) return false;
         }
         return true;
+    }
+
+    IEnumerator ToggleSubmerge()
+    {
+        if (submerged)
+        {
+            submerged = false;
+            submergedUI.SetActive(false);
+
+            yield return submergeCooldown;
+        }
+        else
+        {
+            submerged = true;
+            submergedUI.SetActive(true);
+            submergedUI.transform.position = spawnpoint.position;
+            spawnpoint = submergedUI.transform;
+
+            yield return 0.2F;
+        }
     }
 }

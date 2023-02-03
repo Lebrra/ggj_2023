@@ -103,6 +103,12 @@ public class GameStateManager : MonoBehaviour
 
         //This invokes the game over screen - here we are calling all the methods that subscribed to this action.
         OnGameOver?.Invoke();
+        Time.timeScale = 0;
+       
+    }
+
+    public void LoadMenu()
+    {
         SceneManager.LoadScene("Menu");
     }
 

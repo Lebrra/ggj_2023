@@ -5,8 +5,12 @@ using UnityEngine.AI;
 
 public class MineState : AIState
 {
+    [SerializeField]
+    private float damage;
+    [SerializeField]
+    private float rate;
+
     private Minable current;
-   
     private bool done;
 
     public override void Enter(NavMeshAgent nav, Animator anim)
@@ -17,9 +21,21 @@ public class MineState : AIState
         {
 
             agent.isStopped = true;
+            agent.transform.LookAt(current.transform.position);
             animator.SetTrigger("Mining");
             done = false;
-            Invoke("AllowExit", current.timeToMine);
+            Damage();
+            Invoke("AllowExit", rate*3);
+        }
+    }
+
+
+    public void Damage()
+    {
+        if(current != null)
+        {
+            current.ApplyDamage(damage);
+            Invoke("Damage", rate);
         }
     }
 
@@ -35,10 +51,7 @@ public class MineState : AIState
 
     private void AllowExit()
     {
-        if (current != null)
-        {
-            Destroy(current.gameObject);
-        }
+      
         current = null;
         done = true;
     }
@@ -50,7 +63,8 @@ public class MineState : AIState
         if (collectable != null && current == null)
         {
             current = collectable;
-            agent.transform.LookAt(current.transform.position);
+            
+            done = false;
         }
     }
 

@@ -10,7 +10,11 @@ public class WoodenAudioManager : MonoBehaviour
 {
     public static WoodenAudioManager instance;
 
-    private AudioSource[] audioSourceArray;
+    [SerializeField]
+    private AudioSource[] musicSourceArray;
+    [SerializeField]
+    private AudioSource[] sfxSourceArray;
+
     int toggle = 0;
 
     double nextStartTime;
@@ -18,14 +22,21 @@ public class WoodenAudioManager : MonoBehaviour
 
     [SerializeField]
     double durationOffset = -0.07; //HACK: Don't know what the computed sample duration is too long!
+   
+    [SerializeField]
+    private List<AudioClip> myMusicLoops;
 
     [SerializeField]
-    private List<AudioClip> mySoundClips;
+    private List<AudioClip> mySfxs;
 
     [SerializeField]
     private int currentClipNumber = 0; // Defaults to first Soundclip
     [SerializeField]
     private int nextClipNumber = 0; // Defaults to first SoundClip
+    [SerializeField]
+    int sfxId = 0;
+    [SerializeField]
+    bool startLoops;
 
     // Start is called before the first frame update
     void Start()
@@ -42,47 +53,104 @@ public class WoodenAudioManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            //currentAudioSource = GetComponent<AudioSource>();
-            audioSourceArray = GetComponents<AudioSource>();
-            ConfigureAudioSources(toggle);
-            ConfigureAudioSources(1-toggle);
+            ConfigureMusicSource(toggle);
+            ConfigureMusicSource(1-toggle);
             durationOffset = -0.07; // HACK
             PlayMusic();
         }
     }
 
-    private void ConfigureAudioSources(int id)
+    private void ConfigureMusicSource(int id)
     {
-        audioSourceArray[id].loop = false;
-        audioSourceArray[id].priority = 0;
-        audioSourceArray[id].volume = 1;
+        if (id < musicSourceArray.Length)
+        {
+            musicSourceArray[id].loop = false;
+            musicSourceArray[id].priority = 0;
+            musicSourceArray[id].volume = 1;
+        }
+    }
+
+    private void ConfigureSfxSource(int id)
+    {
+        if (id < sfxSourceArray.Length)
+        {
+            sfxSourceArray[id].loop = false;
+            sfxSourceArray[id].priority = 10;
+            sfxSourceArray[id].volume = 1;
+        }
     }
 
     // clipNumber corresponds to the element id 0 based
-    public void SetClip(int clipNumber)
+    public void SetMusicClip(int clipNumber)
     {
-        if ((clipNumber < mySoundClips.Count) && (clipNumber != currentClipNumber))
+        if ((clipNumber < myMusicLoops.Count) && (clipNumber != currentClipNumber))
         {
             nextClipNumber = clipNumber;
         }
     }
     
+    public void PlaySFX(int id, bool loop = false)
+    {
+        bool didPlay = false;
+        if (id < mySfxs.Count)
+        {
+            for (int source = 0; source < sfxSourceArray.Length; source++ )
+            {
+                if (!sfxSourceArray[source].isPlaying)
+                {
+                    if (!loop)
+                    {
+                        sfxSourceArray[source].loop = false;
+                        sfxSourceArray[source].PlayOneShot(mySfxs[id]);
+                    }
+                    else
+                    {
+                        sfxSourceArray[source].loop = true;
+                        sfxSourceArray[source].clip = mySfxs[id];
+                        sfxSourceArray[source].Play();
+                    }
+                    didPlay = true;
+                    break;
+                }           
+            }
+            if (!didPlay)
+            {
+                // what happens if they're all playing?
+                Debug.LogWarning("Out of sound channels");
+            }            
+        }
+    }
+
+    public void StopSFX(int id)
+    {
+        // if (id < sfxSourceArray.Length)
+        // {
+        //     for (int source = 0; source < sfxCount; source++ )
+        //     {
+        //         if (sfxSourceArray[source].isPlaying)
+        //         {
+        //             // How will you find this sound?
+        //         }
+        //     }
+        // }
+    }
+
     public void PlayMusic()
     {
-        if (!audioSourceArray[toggle].isPlaying)    
+        if (!musicSourceArray[toggle].isPlaying)    
         {            
             // Schedule start and stop time of a clip
             double myDspTime = AudioSettings.dspTime;
-            audioSourceArray[toggle].PlayScheduled(myDspTime);
-            playDuration = (double)mySoundClips[currentClipNumber].samples / mySoundClips[currentClipNumber].frequency;
+            musicSourceArray[toggle].PlayScheduled(myDspTime);
+            playDuration = (double)myMusicLoops[currentClipNumber].samples / myMusicLoops[currentClipNumber].frequency;
             nextStartTime = myDspTime + playDuration + durationOffset;
         }
     }
 
     public void StopMusic()
     {
-        audioSourceArray[toggle].Stop();
-        audioSourceArray[1-toggle].Stop();
+        musicSourceArray[toggle].Stop();
+        musicSourceArray[1-toggle].Stop();
     }
 
     // See if it's time to loop the current clip or a new clip
@@ -91,15 +159,24 @@ public class WoodenAudioManager : MonoBehaviour
         // if you're almost done playing current clip
         if (AudioSettings.dspTime > nextStartTime - 1) // TODO: THis could be shorter than 1 for efficiency
         {
-            AudioClip clipToPlay = mySoundClips[nextClipNumber];
+            AudioClip clipToPlay = myMusicLoops[nextClipNumber];
             // Loads the next Clip to play and schedules when it will start
-            audioSourceArray[toggle].clip = clipToPlay;
-            audioSourceArray[toggle].PlayScheduled(nextStartTime);
+            musicSourceArray[toggle].clip = clipToPlay;
+            musicSourceArray[toggle].PlayScheduled(nextStartTime);
             // Checks how long the Clip will last and updates the Next Start Time with a new value
             double duration = (double)clipToPlay.samples / clipToPlay.frequency;
             nextStartTime = nextStartTime + duration + durationOffset;
             // Switches the toggle to use the other Audio Source next
             toggle = 1 - toggle;
+        }
+        // TESTING ONLY
+        if (sfxId > 0)
+        {
+            PlaySFX(sfxId - 1, false);
+        }
+        if (startLoops)
+        {
+            PlaySFX(3, true);
         }
     }
 

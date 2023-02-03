@@ -5,10 +5,12 @@ using UnityEngine;
 public class TreeChunkLogic : MonoBehaviour
 {
     [SerializeField]
-    Transform startPoint;
-    [SerializeField]
     Transform endPoint;
+    [SerializeField]
+    GameObject rootObject;
 
-    public Transform StartPoint { get => startPoint; }
     public Transform EndtPoint { get => endPoint; }
+    public GameObject RootObject { get => rootObject; }
+
+    public float Length { get => Vector3.Distance(transform.position, endPoint.position); }
 }

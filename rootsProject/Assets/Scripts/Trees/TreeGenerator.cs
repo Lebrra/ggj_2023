@@ -15,7 +15,6 @@ public class TreeGenerator : MonoBehaviour
 
     float currentSize = 1F;
     float time = 0F;
-    float sizeAdditions = 0F;
 
     Transform returnPoint;
     [SerializeField]
@@ -178,10 +177,11 @@ public class TreeGenerator : MonoBehaviour
         RaycastHit[] rayhits = Physics.SphereCastAll(submergedUI.transform.position, 1F, submergedUI.transform.up);
         foreach (var hit in rayhits)
         {
-            var ai = hit.transform.GetComponent<AIBase>();
+            var ai = hit.transform.GetComponent<LumberJacks>();
             if (ai != null)
             {
                 Debug.LogWarning(ai.name + " DIED", ai.transform.gameObject);
+                ai.KillMe();
             }
         }
     }

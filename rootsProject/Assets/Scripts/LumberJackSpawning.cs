@@ -20,6 +20,8 @@ public class LumberJackSpawning : MonoBehaviour
     public void Spawn()
     {
         Instantiate(lumberJackPrefab, transform.position, transform.rotation);
+        // They need to register for sounds
+        int myId = LumberjackAudioMgr.instance.RegisterLumberjack(LumberjackAudioMgr.LumbejackState.walking);
         Invoke("Spawn", baseSpawnRate * Mathf.Sin(GameStateManager.CurrentNormalizedGameTime));
     }
 }

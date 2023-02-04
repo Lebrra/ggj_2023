@@ -517,6 +517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 965280954}
   - component: {fileID: 965280953}
+  - component: {fileID: 965280955}
   m_Layer: 0
   m_Name: AudioManagerSingleton
   m_TagString: Untagged
@@ -539,9 +540,7 @@ MonoBehaviour:
   musicSourceArray:
   - {fileID: 1890074432}
   - {fileID: 145490106}
-  sfxSourceArray:
-  - {fileID: 938397553}
-  - {fileID: 36106262}
+  toggle: 0
   durationOffset: -0.07
   myMusicLoops:
   - {fileID: 8300000, guid: ff3b109eba7804bc08c10c2e9c2168e1, type: 3}
@@ -553,8 +552,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6601f6497e9964a4f936c2eeb44acd66, type: 3}
   - {fileID: 8300000, guid: 9b99b6470ba824e5fbbe01b278b58adf, type: 3}
   - {fileID: 8300000, guid: bfc12e35dcecc4e02a40e2c1aee94a35, type: 3}
-  currentClipNumber: 0
-  nextClipNumber: 0
+  currentClipNumber: 1
+  nextClipNumber: 3
   sfxId: 0
   startLoops: 0
 --- !u!4 &965280954
@@ -572,6 +571,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &965280955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965280951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ac45851eca44be7ad5462bff5019e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySfxs:
+  - {fileID: 8300000, guid: bfc12e35dcecc4e02a40e2c1aee94a35, type: 3}
+  - {fileID: 8300000, guid: 6601f6497e9964a4f936c2eeb44acd66, type: 3}
 --- !u!1 &1480561121
 GameObject:
   m_ObjectHideFlags: 0

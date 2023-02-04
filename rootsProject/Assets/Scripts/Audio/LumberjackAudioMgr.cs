@@ -5,13 +5,17 @@ using UnityEngine;
 public class LumberjackAudioMgr : MonoBehaviour
 {
     public const int MAX_AUDIO_SOURCES = 16;
+    public const int MAX_WALK_SOURCES = 4;
+    public const int MAX_CHOP_SOURCES = 4;
     public static LumberjackAudioMgr instance;
 
     public enum LumbejackState {idling, walking, chopping, dead};
-    public enum Sounds {chopping = 0, walking = 1};
+    public enum Sounds {walking = 0, chopping = 1};
     [SerializeField]
     private List<AudioClip> mySfxs;
-    Dictionary<int, AudioSource> Sources;
+    private int walkCount = 0;
+    private int chopCount = 0;
+    Dictionary<int, AudioSource> Sources = new Dictionary<int, AudioSource>();
 
     Dictionary<int, Lumberjack> LJStates = new Dictionary<int, Lumberjack>();
 
@@ -36,9 +40,23 @@ public class LumberjackAudioMgr : MonoBehaviour
 
     private void PlaySound(AudioSource source, Sounds soundIndex)
     {
+        source.Stop();
         source.clip = mySfxs[(int)soundIndex];
         source.loop = true;
-        source.Play();
+        
+        if (soundIndex == Sounds.chopping && chopCount < MAX_CHOP_SOURCES)
+        {
+            chopCount++;
+            source.pitch = source.pitch * (Random.Range(-1.1f, 1.1f));
+            source.Play();
+        }
+        if (soundIndex == Sounds.walking && walkCount < MAX_WALK_SOURCES)
+        {
+            walkCount++;
+            source.pitch = source.pitch * (Random.Range(-1.1f, 1.1f));
+            source.Play();
+        }
+
     }
 
     // Update is called once per frame
@@ -51,6 +69,9 @@ public class LumberjackAudioMgr : MonoBehaviour
         {
             LumberjackAudioMgr.LumbejackState _curr = entry.Value.current;
             LumberjackAudioMgr.LumbejackState _next = entry.Value.next;
+
+            // if (!Sources.ContainsKey(entry.Key))
+            //     break;
             AudioSource _source = Sources[entry.Key];
 
             if (_curr != _next)
@@ -88,14 +109,14 @@ public class LumberjackAudioMgr : MonoBehaviour
                         _source.Stop();
                     }
                 }
-                _curr = _next;
+                entry.Value.current = entry.Value.next; // is this persisted?
             }
         }
     }
     public int RegisterLumberjack(LumbejackState initialState = LumbejackState.idling)
     {
         int _tempId = LJStates.Count + 1;
-        Lumberjack _lj = new Lumberjack(_tempId);
+        Lumberjack _lj = new Lumberjack(_tempId, initialState);
         if (!LJStates.ContainsKey(_tempId))
             LJStates.Add(_tempId, _lj);
 
@@ -122,7 +143,8 @@ public class Lumberjack
 {
     public Lumberjack( int id, LumberjackAudioMgr.LumbejackState initialState = LumberjackAudioMgr.LumbejackState.idling  ) 
     {
-        current = next = initialState;        
+        current = LumberjackAudioMgr.LumbejackState.idling;
+        next = initialState;
     }
     public int id;
     public LumberjackAudioMgr.LumbejackState current;

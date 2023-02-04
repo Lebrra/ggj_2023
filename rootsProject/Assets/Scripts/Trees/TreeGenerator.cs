@@ -55,7 +55,10 @@ public class TreeGenerator : MonoBehaviour
             if (submerged)
             {
                 // move the identifier
-                submergedUI.transform.position += (new Vector3(Input.GetAxis("Horizontal"), 0F, Input.GetAxis("Vertical")) * currentSpeed);
+                Vector3 normal = new Vector3(Input.GetAxis("Horizontal"), 0F, Input.GetAxis("Vertical")).normalized * ( 1F - currentSpeed) / 7.5F;
+                Vector3 pos = submergedUI.transform.position;
+                submergedUI.transform.position = normal + pos;
+
                 hoverUI.position = new Vector3(submergedUI.transform.position.x, hoverUI.position.y, submergedUI.transform.position.z);
             }
             else if (!growRoot.Exists())
@@ -115,15 +118,17 @@ public class TreeGenerator : MonoBehaviour
             submergedUI.SetActive(false);
 
             // check for skewered here
+            CheckForAmbush();
 
             yield return submergeCooldown;
         }
         else
         {
-            submerged = true;
-            submergedUI.SetActive(true);
-            submergedUI.transform.position = spawnpoint.position;
+            var tempPos = spawnpoint.position;
+            submergedUI.transform.position = new Vector3(tempPos.x, 0F, tempPos.z);
             spawnpoint = submergedUI.transform;
+            submergedUI.SetActive(true);
+            submerged = true;
 
             yield return 0.2F;
         }
@@ -155,5 +160,20 @@ public class TreeGenerator : MonoBehaviour
                 ResetPos();
                 return;
             }
+    }
+
+    public void CheckForAmbush()
+    {
+        // sphere cast on submerge UI, kill all lumberjacks
+
+        RaycastHit[] rayhits = Physics.SphereCastAll(submergedUI.transform.position, 1F, submergedUI.transform.up);
+        foreach (var hit in rayhits)
+        {
+            var ai = hit.transform.GetComponent<AIBase>();
+            if (ai != null)
+            {
+                Debug.LogWarning(ai.name + " DIED", ai.transform.gameObject);
+            }
+        }
     }
 }

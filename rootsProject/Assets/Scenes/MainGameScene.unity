@@ -1087,7 +1087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4976119742841433213, guid: 89b3b64ab4d79b543983e08e1c3ed9d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -44.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4976119742841433213, guid: 89b3b64ab4d79b543983e08e1c3ed9d8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1095,7 +1095,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4976119742841433213, guid: 89b3b64ab4d79b543983e08e1c3ed9d8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4976119742841433213, guid: 89b3b64ab4d79b543983e08e1c3ed9d8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1128,6 +1128,10 @@ PrefabInstance:
     - target: {fileID: 4976119742841433215, guid: 89b3b64ab4d79b543983e08e1c3ed9d8, type: 3}
       propertyPath: m_Name
       value: RootGrower
+      objectReference: {fileID: 0}
+    - target: {fileID: 4976119743645568583, guid: 89b3b64ab4d79b543983e08e1c3ed9d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89b3b64ab4d79b543983e08e1c3ed9d8, type: 3}

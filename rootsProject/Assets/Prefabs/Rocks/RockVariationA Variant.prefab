@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8861906155707412804
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.719631
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7199962
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 22.877645
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+      propertyPath: m_Name
+      value: RockVariationA
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+--- !u!1 &8519325483731815445 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d4ed96ab7bbb46499f2c0c780ac48a5, type: 3}
+  m_PrefabInstance: {fileID: 8861906155707412804}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &4358849143341484150
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519325483731815445}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.014, y: 0.013, z: 0.014}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.001, y: 0.001, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!136 &448287146827931866
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519325483731815445}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.013
+  m_Height: 0.025622305
+  m_Direction: 1
+  m_Center: {x: 0.0012163785, y: 0.00070155447, z: 0.00021620323}
+--- !u!54 &2436681380026374586
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519325483731815445}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

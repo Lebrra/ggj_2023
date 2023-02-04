@@ -47,3 +47,4 @@ MonoBehaviour:
   <TimeForTheGame>k__BackingField: 60
   m_Sunlight: {fileID: 0}
   m_MaxSunRotation: 180
+  gameOverScreen: {fileID: 0}

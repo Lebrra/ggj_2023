@@ -13,6 +13,8 @@ public class GameStateManager : MonoBehaviour
     public GameObject m_Sunlight;
     [SerializeField]
     public float m_MaxSunRotation;
+    [SerializeField]
+    public GameObject gameOverScreen;
 
     public static float CurrentNormalizedGameTime { get; private set; }
 
@@ -69,6 +71,7 @@ public class GameStateManager : MonoBehaviour
 
         currentGameState = GAME_STATE.PLAYING;
         m_elapsedTime = 0;
+        Time.timeScale = 1;
 
 
     }
@@ -104,7 +107,8 @@ public class GameStateManager : MonoBehaviour
         //This invokes the game over screen - here we are calling all the methods that subscribed to this action.
         OnGameOver?.Invoke();
         Time.timeScale = 0;
-       
+        _instance.gameOverScreen.SetActive(true);
+        
     }
 
     public void LoadMenu()
@@ -114,11 +118,7 @@ public class GameStateManager : MonoBehaviour
 
     public static void Restart()
     {
-        m_elapsedTime = 0;
-        //This is how you can load scenes from code in Unity. In this case our entire game is in one scene.
-        //To restart the game we just reload the scene.
-        //Reloading the scene means any object that aren't Singletons will be destroyed and recreated 
-        //Effectively re-initalizing them to their basic starting state.
+
         Time.timeScale = 1;
         currentGameState = GAME_STATE.PLAYING;
         SceneManager.LoadScene("MainGameScene");

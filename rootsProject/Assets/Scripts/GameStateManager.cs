@@ -71,6 +71,7 @@ public class GameStateManager : MonoBehaviour
 
         currentGameState = GAME_STATE.PLAYING;
         m_elapsedTime = 0;
+        Time.timeScale = 1;
 
 
     }
@@ -117,11 +118,7 @@ public class GameStateManager : MonoBehaviour
 
     public static void Restart()
     {
-        m_elapsedTime = 0;
-        //This is how you can load scenes from code in Unity. In this case our entire game is in one scene.
-        //To restart the game we just reload the scene.
-        //Reloading the scene means any object that aren't Singletons will be destroyed and recreated 
-        //Effectively re-initalizing them to their basic starting state.
+
         Time.timeScale = 1;
         currentGameState = GAME_STATE.PLAYING;
         SceneManager.LoadScene("MainGameScene");

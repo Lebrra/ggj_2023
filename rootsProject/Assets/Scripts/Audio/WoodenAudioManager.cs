@@ -13,8 +13,10 @@ public class WoodenAudioManager : MonoBehaviour
     [SerializeField]
     private AudioSource[] musicSourceArray;
     [SerializeField]
-    private AudioSource[] sfxSourceArray;
-
+    
+    //private LumberjackAudioMgr lumberjackAudioMgr;
+    
+    
     int toggle = 0;
 
     double nextStartTime;
@@ -53,6 +55,9 @@ public class WoodenAudioManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            
+            //lumberjackAudioMgr = gameObject.AddComponent<LumberjackAudioMgr>();            
+            
             ConfigureMusicSource(toggle);
             ConfigureMusicSource(1-toggle);
             durationOffset = -0.07; // HACK
@@ -70,16 +75,6 @@ public class WoodenAudioManager : MonoBehaviour
         }
     }
 
-    private void ConfigureSfxSource(int id)
-    {
-        if (id < sfxSourceArray.Length)
-        {
-            sfxSourceArray[id].loop = false;
-            sfxSourceArray[id].priority = 10;
-            sfxSourceArray[id].volume = 1;
-        }
-    }
-
     // clipNumber corresponds to the element id 0 based
     public void SetMusicClip(int clipNumber)
     {
@@ -88,7 +83,7 @@ public class WoodenAudioManager : MonoBehaviour
             nextClipNumber = clipNumber;
         }
     }
-    
+/*    
     public void PlaySFX(int id, bool loop = false)
     {
         bool didPlay = false;
@@ -120,20 +115,8 @@ public class WoodenAudioManager : MonoBehaviour
             }            
         }
     }
+    */
 
-    public void StopSFX(int id)
-    {
-        // if (id < sfxSourceArray.Length)
-        // {
-        //     for (int source = 0; source < sfxCount; source++ )
-        //     {
-        //         if (sfxSourceArray[source].isPlaying)
-        //         {
-        //             // How will you find this sound?
-        //         }
-        //     }
-        // }
-    }
 
     public void PlayMusic()
     {
@@ -172,11 +155,11 @@ public class WoodenAudioManager : MonoBehaviour
         // TESTING ONLY
         if (sfxId > 0)
         {
-            PlaySFX(sfxId - 1, false);
+            //PlaySFX(sfxId - 1, false);
         }
         if (startLoops)
         {
-            PlaySFX(3, true);
+            //PlaySFX(3, true);
         }
     }
 

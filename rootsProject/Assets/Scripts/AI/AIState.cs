@@ -10,6 +10,7 @@ public abstract class AIState : MonoBehaviour
     protected NavMeshAgent agent;
    
     protected Animator animator;
+    protected int audioID;
     [field: SerializeField]
     public List<AIState> nextStates { get; set; }
 
@@ -31,10 +32,11 @@ public abstract class AIState : MonoBehaviour
         return true;
     }
 
-    public virtual void Enter(NavMeshAgent nav, Animator anim)
+    public virtual void Enter(NavMeshAgent nav, Animator anim, int id)
     {
         animator = anim;
         agent = nav;
+        audioID = id;
         
     }
 

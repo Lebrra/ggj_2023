@@ -8,10 +8,10 @@ public class GatherState : AIState
     private Collectable currentCollectable;
     private bool done;
 
-    public override void Enter(NavMeshAgent nav, Animator anim)
+    public override void Enter(NavMeshAgent nav, Animator anim, int id)
     {
         Debug.Log("Enter gather");
-        base.Enter(nav, anim);
+        base.Enter(nav, anim,id);
         if (currentCollectable != null)
         {
           

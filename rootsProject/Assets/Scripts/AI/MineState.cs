@@ -15,16 +15,17 @@ public class MineState : AIState
     private Minable current;
     private bool done;
 
-    public override void Enter(NavMeshAgent nav, Animator anim)
+    public override void Enter(NavMeshAgent nav, Animator anim, int id)
     {
        
         Debug.Log("Enter Mine");
-        base.Enter(nav, anim);
+        base.Enter(nav, anim,id);
         if (current != null)
         {
 
             agent.isStopped = true;
             agent.transform.LookAt(current.transform.position);
+            LumberjackAudioMgr.instance.SetLumberjackState(audioID, LumberjackAudioMgr.LumbejackState.chopping);
             animator.SetTrigger("Mining");
             axe.SetActive(true);
             done = false;

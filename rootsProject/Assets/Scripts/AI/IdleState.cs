@@ -21,9 +21,9 @@ public class IdleState : AIState
     {
         Invoke("AllowEnter", Random.Range(minTime, maxTime));
     }
-    public override void Enter(NavMeshAgent nav, Animator anim)
+    public override void Enter(NavMeshAgent nav, Animator anim, int id)
     {
-        base.Enter(nav, anim);
+        base.Enter(nav, anim,id);
         agent.isStopped = true;
         animator.SetTrigger("Idle");
         canExit = false;

@@ -13,10 +13,10 @@ public class WanderState : AIState
     private Vector3 destination;
     private Vector3 startPos;
 
-    public override void Enter(NavMeshAgent nav, Animator anim)
+    public override void Enter(NavMeshAgent nav, Animator anim, int id)
     {
         Debug.Log("Enter wander");
-        base.Enter(nav, anim);
+        base.Enter(nav, anim,id);
         animator.SetTrigger("Running");
         startPos = agent.gameObject.transform.position;
         SetRandomDestination();

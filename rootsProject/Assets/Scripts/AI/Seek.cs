@@ -20,12 +20,13 @@ public class Seek : AIState
         canEnter = true;
         
     }
-    public override void Enter(NavMeshAgent nav, Animator anim)
+    public override void Enter(NavMeshAgent nav, Animator anim, int id)
     {
-        base.Enter(nav, anim);
+        base.Enter(nav, anim,id);
         Debug.Log("Enter seek");
         agent.isStopped = true;
         animator.SetTrigger("Idle");
+        LumberjackAudioMgr.instance.SetLumberjackState(audioID, LumberjackAudioMgr.LumbejackState.idling);
         canExit = false;
         LookForTarget();
     }
@@ -41,6 +42,7 @@ public class Seek : AIState
             Minable root;
             if(hit.collider.TryGetComponent<Minable>(out root))
             {
+                LumberjackAudioMgr.instance.SetLumberjackState(audioID, LumberjackAudioMgr.LumbejackState.walking);
                 animator.SetTrigger("Running");
                 agent.SetDestination(root.transform.position);
                 agent.isStopped = false;

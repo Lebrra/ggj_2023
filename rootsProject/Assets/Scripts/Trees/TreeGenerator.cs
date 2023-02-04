@@ -8,6 +8,9 @@ public class TreeGenerator : MonoBehaviour
     public static TreeGenerator instance;
 
     [SerializeField]
+    Transform cameraAngle;
+
+    [SerializeField]
     float growTime = 0.1F;
     float currentSpeed = 0.1F;
     [SerializeField]
@@ -52,16 +55,17 @@ public class TreeGenerator : MonoBehaviour
     private void FixedUpdate()
     {
         currentSpeed = growTime * 0.7F * GameStateManager.CurrentNormalizedGameTime + 0.04F;
-        //currentSize = (1 - GameStateManager.CurrentNormalizedGameTime) / 3F + 0.67F;
         time += Time.deltaTime;
         currentSize = Mathf.Clamp((5F - time) / 10F + 0.8F, 0.6F, 1.2F);
 
         if (Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")) >= inputSensitivity)
         {
+            Vector3 playerCameraInput = Quaternion.AngleAxis(cameraAngle.rotation.eulerAngles.y, Vector3.up) * new Vector3(Input.GetAxis("Horizontal"), 0F, Input.GetAxis("Vertical"));
+
             if (submerged)
             {
                 // move the identifier
-                Vector3 normal = new Vector3(Input.GetAxis("Horizontal"), 0F, Input.GetAxis("Vertical")).normalized * ( 1F - currentSpeed) / 7.5F;
+                Vector3 normal = playerCameraInput * ( 1F - currentSpeed) / 7.5F;
                 Vector3 pos = submergedUI.transform.position;
                 submergedUI.transform.position = normal + pos;
 
@@ -69,7 +73,7 @@ public class TreeGenerator : MonoBehaviour
             }
             else if (!growRoot.Exists())
             {
-                growRoot.Replace(SpawnRootPart(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"))));
+                growRoot.Replace(SpawnRootPart(playerCameraInput));
                 hoverUI.position = new Vector3(spawnpoint.transform.position.x, hoverUI.position.y, spawnpoint.transform.position.z);
             }
         }
@@ -83,10 +87,10 @@ public class TreeGenerator : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnRootPart(Vector2 playerInput)
+    IEnumerator SpawnRootPart(Vector3 playerInput)
     {
         // get correct degrees for all quadrants
-        var degree = Mathf.Atan(playerInput.y / -playerInput.x) * Mathf.Rad2Deg;
+        var degree = Mathf.Atan(playerInput.z / -playerInput.x) * Mathf.Rad2Deg;
         if (playerInput.x < 0) degree -= 180F;
 
         // check to see if ahead is clear
@@ -101,9 +105,9 @@ public class TreeGenerator : MonoBehaviour
         yield return currentSpeed;
     }
 
-    bool CheckAhead(Transform endpoint, Vector2 playerInput, float distance)
+    bool CheckAhead(Transform endpoint, Vector3 playerInput, float distance)
     {
-        var playerDirection = new Vector3(playerInput.x, 0F, playerInput.y).normalized;
+        var playerDirection = new Vector3(playerInput.x, 0F, playerInput.z).normalized;
 
         Debug.DrawRay(endpoint.position, playerDirection * distance, Color.red);
         RaycastHit[] rayhits = Physics.RaycastAll(endpoint.position, playerDirection * distance, distance);

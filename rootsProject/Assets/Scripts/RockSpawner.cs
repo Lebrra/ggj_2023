@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class RockSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    List<GameObject> rockVariants;
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnRocks()
     {
-        
+
     }
 }

@@ -51,10 +51,9 @@ MonoBehaviour:
   toggle: 0
   durationOffset: -0.07
   myMusicLoops:
-  - {fileID: 8300000, guid: ff3b109eba7804bc08c10c2e9c2168e1, type: 3}
-  - {fileID: 8300000, guid: 7136aac04a1604b689bcccf4c45a58fc, type: 3}
-  - {fileID: 8300000, guid: 7f271ce33a0614aae90a07d628130a1a, type: 3}
-  - {fileID: 8300000, guid: 72c48c51b14cb4a7cb1c6897b4fff021, type: 3}
+  - {fileID: 8300000, guid: 3692f209bd72246cabc77b026c0db819, type: 3}
+  - {fileID: 8300000, guid: 2881b2a29b2ff4af2a9771eb111c4574, type: 3}
+  - {fileID: 8300000, guid: 43ca18f347cc74e2e9bc5f6b37257da8, type: 3}
   mySfxs:
   - {fileID: 8300000, guid: 3b5201f8039cc46cca6c7bd0480c4fbe, type: 3}
   - {fileID: 8300000, guid: 6601f6497e9964a4f936c2eeb44acd66, type: 3}
@@ -77,5 +76,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySfxs:
-  - {fileID: 8300000, guid: bfc12e35dcecc4e02a40e2c1aee94a35, type: 3}
-  - {fileID: 8300000, guid: 6601f6497e9964a4f936c2eeb44acd66, type: 3}
+  - {fileID: 8300000, guid: 6d0868b7455ef48eba30158728e00079, type: 3}
+  - {fileID: 8300000, guid: 5bbd29fc07a0344a487243fcccb5bedf, type: 3}

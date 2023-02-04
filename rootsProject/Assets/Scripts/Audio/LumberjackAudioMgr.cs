@@ -48,12 +48,14 @@ public class LumberjackAudioMgr : MonoBehaviour
         {
             chopCount++;
             source.pitch = source.pitch * (Random.Range(-1.1f, 1.1f));
+            source.volume = (float)0.25;
             source.Play();
         }
         if (soundIndex == Sounds.walking && walkCount < MAX_WALK_SOURCES)
         {
             walkCount++;
             source.pitch = source.pitch * (Random.Range(-1.1f, 1.1f));
+            source.volume = (float)0.25;
             source.Play();
         }
 

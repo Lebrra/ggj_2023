@@ -61,6 +61,7 @@ public class WoodenAudioManager : MonoBehaviour
             ConfigureMusicSource(toggle);
             ConfigureMusicSource(1-toggle);
             durationOffset = -0.07; // HACK
+            SetMusicClip(0);
             PlayMusic();
         }
     }
@@ -124,7 +125,7 @@ public class WoodenAudioManager : MonoBehaviour
         {            
             // Schedule start and stop time of a clip
             double myDspTime = AudioSettings.dspTime;
-            musicSourceArray[toggle].PlayScheduled(myDspTime);
+            musicSourceArray[toggle].PlayScheduled(myDspTime+0.01);
             playDuration = (double)myMusicLoops[currentClipNumber].samples / myMusicLoops[currentClipNumber].frequency;
             nextStartTime = myDspTime + playDuration + durationOffset;
         }

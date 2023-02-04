@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfbff89e3aa27a49aa0bcf03f1ed621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lumberJackPrefab: {fileID: 1782702501690864755, guid: 0f103717671d4314594bd857645ca9af, type: 3}
+  lumberJackPrefab: {fileID: 5732225029484568118, guid: 0f103717671d4314594bd857645ca9af, type: 3}
   baseSpawnRate: 10
 --- !u!4 &428558432
 Transform:
@@ -1303,7 +1303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfbff89e3aa27a49aa0bcf03f1ed621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lumberJackPrefab: {fileID: 1782702501690864755, guid: 0f103717671d4314594bd857645ca9af, type: 3}
+  lumberJackPrefab: {fileID: 5732225029484568118, guid: 0f103717671d4314594bd857645ca9af, type: 3}
   baseSpawnRate: 10
 --- !u!4 &893821724
 Transform:
@@ -2536,7 +2536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfbff89e3aa27a49aa0bcf03f1ed621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lumberJackPrefab: {fileID: 1782702501690864755, guid: 0f103717671d4314594bd857645ca9af, type: 3}
+  lumberJackPrefab: {fileID: 5732225029484568118, guid: 0f103717671d4314594bd857645ca9af, type: 3}
   baseSpawnRate: 10
 --- !u!4 &1596432547
 Transform:
@@ -2694,7 +2694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfbff89e3aa27a49aa0bcf03f1ed621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lumberJackPrefab: {fileID: 1782702501690864755, guid: 0f103717671d4314594bd857645ca9af, type: 3}
+  lumberJackPrefab: {fileID: 5732225029484568118, guid: 0f103717671d4314594bd857645ca9af, type: 3}
   baseSpawnRate: 10
 --- !u!1001 &1695222372
 PrefabInstance:

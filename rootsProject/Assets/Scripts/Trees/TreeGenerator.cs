@@ -13,6 +13,10 @@ public class TreeGenerator : MonoBehaviour
     [SerializeField]
     float inputSensitivity = 0.05F;
 
+    float currentSize = 1F;
+    float time = 0F;
+    float sizeAdditions = 0F;
+
     Transform returnPoint;
     [SerializeField]
     Transform spawnpoint;
@@ -49,6 +53,9 @@ public class TreeGenerator : MonoBehaviour
     private void FixedUpdate()
     {
         currentSpeed = growTime * 0.7F * GameStateManager.CurrentNormalizedGameTime + 0.04F;
+        //currentSize = (1 - GameStateManager.CurrentNormalizedGameTime) / 3F + 0.67F;
+        time += Time.deltaTime;
+        currentSize = Mathf.Clamp((5F - time) / 10F + 0.8F, 0.6F, 1.2F);
 
         if (Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")) >= inputSensitivity)
         {
@@ -88,6 +95,7 @@ public class TreeGenerator : MonoBehaviour
 
         // spawn new part based using rotation
         var newPart = Instantiate(partPrefab, spawnpoint.position, Quaternion.Euler(Random.Range(0F, 360F), degree, 0));
+        newPart.transform.SetScale(currentSize);
         spawnpoint = newPart.EndtPoint;
 
         // wait to spawn another
@@ -144,6 +152,7 @@ public class TreeGenerator : MonoBehaviour
     {
         spawnpoint = returnPoint;
         hoverUI.position = new Vector3(spawnpoint.transform.position.x, hoverUI.position.y, spawnpoint.transform.position.z);
+        time = 0F;
     }
 
     public void CheckForMissing(Transform destroyedRoot)    // use this when a root is destroyed 

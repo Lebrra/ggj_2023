@@ -10,7 +10,7 @@ public class TreeMinable : Minable
         if (health <= 0)
         {
             Debug.Log("THE TREE HAS DIED!");
-            GameStateManager.GameOver();
+            GameStateManager.GameOver(false);
         }
     }
 }

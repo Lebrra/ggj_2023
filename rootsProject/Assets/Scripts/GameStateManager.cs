@@ -15,6 +15,10 @@ public class GameStateManager : MonoBehaviour
     public float m_MaxSunRotation;
     [SerializeField]
     public GameObject gameOverScreen;
+    [SerializeField]
+    public GameObject winText;
+    [SerializeField]
+    public GameObject loseText;
 
     public static float CurrentNormalizedGameTime { get; private set; }
 
@@ -80,7 +84,7 @@ public class GameStateManager : MonoBehaviour
     {
         if (m_elapsedTime >= TimeForTheGame)
         {
-            GameOver();
+            GameOver(true);
             return;
         }
 
@@ -99,7 +103,7 @@ public class GameStateManager : MonoBehaviour
 
 
     //These two methods help up to handle the Game being over and restarting. 
-    public static void GameOver()
+    public static void GameOver(bool win)
     {
         _instance.SwitchGameState(GAME_STATE.GAMEOVER);
         //Add any logic that you would want to do when the game ends here
@@ -108,6 +112,8 @@ public class GameStateManager : MonoBehaviour
         OnGameOver?.Invoke();
         Time.timeScale = 0;
         _instance.gameOverScreen.SetActive(true);
+        if (win) _instance.winText.SetActive(true);
+        else _instance.loseText.SetActive(true);
         
     }
 

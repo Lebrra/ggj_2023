@@ -9,12 +9,15 @@ public class MineState : AIState
     private float damage;
     [SerializeField]
     private float rate;
+    [SerializeField]
+    private GameObject axe;
 
     private Minable current;
     private bool done;
 
     public override void Enter(NavMeshAgent nav, Animator anim)
     {
+       
         Debug.Log("Enter Mine");
         base.Enter(nav, anim);
         if (current != null)
@@ -23,6 +26,7 @@ public class MineState : AIState
             agent.isStopped = true;
             agent.transform.LookAt(current.transform.position);
             animator.SetTrigger("Mining");
+            axe.SetActive(true);
             done = false;
             Damage();
             Invoke("AllowExit", rate*3);
@@ -51,7 +55,8 @@ public class MineState : AIState
 
     private void AllowExit()
     {
-      
+        axe.SetActive(false);
+       
         current = null;
         done = true;
     }

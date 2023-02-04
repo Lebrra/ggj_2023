@@ -16,14 +16,22 @@ public class AIBase : MonoBehaviour
 
     private AIState currentState;
 
+    private bool stopped = false;
+
     private void Awake()
     {
         currentState = startState;
         currentState.Enter(agent, animator);
+        stopped = false;
     }
 
     private void Update()
     {
+        if(stopped)
+        {
+            return;
+        }
+
         if(currentState.CanExit())
         {
             foreach(AIState state in currentState.nextStates)
@@ -36,6 +44,13 @@ public class AIBase : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void StopAI()
+    {
+        stopped = true;
+        animator.enabled = false;
+        agent.enabled = false;
     }
 
 }

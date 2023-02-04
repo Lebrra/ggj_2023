@@ -13,6 +13,8 @@ public class GameStateManager : MonoBehaviour
     public GameObject m_Sunlight;
     [SerializeField]
     public float m_MaxSunRotation;
+    [SerializeField]
+    public GameObject gameOverScreen;
 
     public static float CurrentNormalizedGameTime { get; private set; }
 
@@ -104,7 +106,8 @@ public class GameStateManager : MonoBehaviour
         //This invokes the game over screen - here we are calling all the methods that subscribed to this action.
         OnGameOver?.Invoke();
         Time.timeScale = 0;
-       
+        _instance.gameOverScreen.SetActive(true);
+        
     }
 
     public void LoadMenu()

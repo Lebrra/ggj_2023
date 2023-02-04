@@ -671,7 +671,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Survive the day by growing your roots or eliminating the invading lumberjacks!
+  m_text: Survive the day by growing your roots and yeeting the invading lumberjacks!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea1805e46b6b64a49895442cba2744aa, type: 2}
   m_sharedMaterial: {fileID: 1604184732605192233, guid: ea1805e46b6b64a49895442cba2744aa, type: 2}

@@ -7,6 +7,8 @@ public class Menu : MonoBehaviour
 {
     [SerializeField]
     GameObject quitButton;
+    [SerializeField]
+    GameObject credits;
 
     //This method gets called when the object is first created. It will get called even if the object is disabled.
     public void Awake()
@@ -35,5 +37,13 @@ public class Menu : MonoBehaviour
     {
         //quit the application
         Application.Quit();
+    }
+
+    public void ToggleCredits(bool enable)
+    {
+        if (credits)
+        {
+            credits.SetActive(enable);
+        }
     }
 }

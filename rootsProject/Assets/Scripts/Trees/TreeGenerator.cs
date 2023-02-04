@@ -79,7 +79,11 @@ public class TreeGenerator : MonoBehaviour
         }
         if (Input.GetButton("Dive"))
         {
-            if (!submergeDelay.Exists()) submergeDelay.Replace(ToggleSubmerge());
+            if (!submergeDelay.Exists() && !submerged) submergeDelay.Replace(ToggleSubmerge());
+        }
+        if (Input.GetButton("Emerge"))
+        {
+            if (!submergeDelay.Exists() && submerged) submergeDelay.Replace(ToggleSubmerge());
         }
         if (Input.GetButton("NewSpawn"))
         {

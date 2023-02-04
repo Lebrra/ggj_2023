@@ -178,7 +178,7 @@ public class TreeGenerator : MonoBehaviour
     {
         // sphere cast on submerge UI, kill all lumberjacks
 
-        RaycastHit[] rayhits = Physics.SphereCastAll(submergedUI.transform.position, 1F, submergedUI.transform.up);
+        RaycastHit[] rayhits = Physics.SphereCastAll(submergedUI.transform.position, 2F, submergedUI.transform.up);
         foreach (var hit in rayhits)
         {
             var ai = hit.transform.GetComponent<LumberJacks>();

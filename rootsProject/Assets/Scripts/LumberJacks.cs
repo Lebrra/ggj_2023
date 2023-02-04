@@ -27,8 +27,7 @@ public class LumberJacks : MonoBehaviour
 
     public void KillMe()
     {
-        pelvis.AddExplosionForce(1000, transform.position, 100);
-       // pelvis.AddForce(new Vector3(0,300,0), ForceMode.Impulse);
+        pelvis.AddForce(new Vector3(0,300,0), ForceMode.Impulse);
         mainRigidBody.isKinematic = false;
         aiBase.StopAI();
         Invoke("DisappearMe", 10);

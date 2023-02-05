@@ -14,7 +14,7 @@ public class WoodenAudioManager : MonoBehaviour
     private AudioSource[] musicSourceArray;
     [SerializeField]
     
-    //private LumberjackAudioMgr lumberjackAudioMgr;
+    private bool hasStarted = false;
     
     
     int toggle = 0;
@@ -56,13 +56,11 @@ public class WoodenAudioManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
             
-            //lumberjackAudioMgr = gameObject.AddComponent<LumberjackAudioMgr>();            
-            
             ConfigureMusicSource(toggle);
             ConfigureMusicSource(1-toggle);
             durationOffset = -0.07; // HACK
-            SetMusicClip(0);
-            PlayMusic();
+            SetMusicClip(1);
+            //PlayMusic();
         }
     }
 
@@ -79,45 +77,11 @@ public class WoodenAudioManager : MonoBehaviour
     // clipNumber corresponds to the element id 0 based
     public void SetMusicClip(int clipNumber)
     {
-        if ((clipNumber < myMusicLoops.Count) && (clipNumber != currentClipNumber))
+        if ((clipNumber < myMusicLoops.Count))// && (clipNumber != currentClipNumber))//broken
         {
             nextClipNumber = clipNumber;
         }
     }
-/*    
-    public void PlaySFX(int id, bool loop = false)
-    {
-        bool didPlay = false;
-        if (id < mySfxs.Count)
-        {
-            for (int source = 0; source < sfxSourceArray.Length; source++ )
-            {
-                if (!sfxSourceArray[source].isPlaying)
-                {
-                    if (!loop)
-                    {
-                        sfxSourceArray[source].loop = false;
-                        sfxSourceArray[source].PlayOneShot(mySfxs[id]);
-                    }
-                    else
-                    {
-                        sfxSourceArray[source].loop = true;
-                        sfxSourceArray[source].clip = mySfxs[id];
-                        sfxSourceArray[source].Play();
-                    }
-                    didPlay = true;
-                    break;
-                }           
-            }
-            if (!didPlay)
-            {
-                // what happens if they're all playing?
-                Debug.LogWarning("Out of sound channels");
-            }            
-        }
-    }
-    */
-
 
     public void PlayMusic()
     {
@@ -125,9 +89,10 @@ public class WoodenAudioManager : MonoBehaviour
         {            
             // Schedule start and stop time of a clip
             double myDspTime = AudioSettings.dspTime;
-            musicSourceArray[toggle].PlayScheduled(myDspTime+0.01);
+            musicSourceArray[toggle].PlayScheduled(myDspTime);
             playDuration = (double)myMusicLoops[currentClipNumber].samples / myMusicLoops[currentClipNumber].frequency;
             nextStartTime = myDspTime + playDuration + durationOffset;
+            hasStarted = true;
         }
     }
 
@@ -140,6 +105,7 @@ public class WoodenAudioManager : MonoBehaviour
     // See if it's time to loop the current clip or a new clip
     void Update()
     {
+        if (!hasStarted) return; // so you don't update before you start
         // if you're almost done playing current clip
         if (AudioSettings.dspTime > nextStartTime - 1) // TODO: THis could be shorter than 1 for efficiency
         {
@@ -147,6 +113,9 @@ public class WoodenAudioManager : MonoBehaviour
             // Loads the next Clip to play and schedules when it will start
             musicSourceArray[toggle].clip = clipToPlay;
             musicSourceArray[toggle].PlayScheduled(nextStartTime);
+
+            currentClipNumber = nextClipNumber;
+
             // Checks how long the Clip will last and updates the Next Start Time with a new value
             double duration = (double)clipToPlay.samples / clipToPlay.frequency;
             nextStartTime = nextStartTime + duration + durationOffset;

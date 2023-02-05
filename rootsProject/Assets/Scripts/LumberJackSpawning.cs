@@ -22,7 +22,7 @@ public class LumberJackSpawning : MonoBehaviour
         AIBase lumberJack = Instantiate<AIBase>(lumberJackPrefab, transform.position, transform.rotation);
         // They need to register for sounds
         
-        int myId = LumberjackAudioMgr.instance.RegisterLumberjack(LumberjackAudioMgr.LumbejackState.walking);
+        int myId = LumberjackAudioMgr.instance.RegisterLumberjack(LumberjackAudioMgr.LumbejackState.idling);
         lumberJack.SetId(myId);
         Invoke("Spawn", baseSpawnRate * Mathf.Sin(GameStateManager.CurrentNormalizedGameTime));
     }

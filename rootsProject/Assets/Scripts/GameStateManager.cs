@@ -76,8 +76,8 @@ public class GameStateManager : MonoBehaviour
         currentGameState = GAME_STATE.PLAYING;
         m_elapsedTime = 0;
         Time.timeScale = 1;
-
-
+        // start the music 
+        WoodenAudioManager.instance.PlayMusic();
     }
 
     public void Update()
@@ -107,6 +107,8 @@ public class GameStateManager : MonoBehaviour
     {
         _instance.SwitchGameState(GAME_STATE.GAMEOVER);
         //Add any logic that you would want to do when the game ends here
+        WoodenAudioManager.instance.SetMusicClip(0); // outro music
+        LumberjackAudioMgr.instance.StopAllSounds();
 
         //This invokes the game over screen - here we are calling all the methods that subscribed to this action.
         OnGameOver?.Invoke();
@@ -118,7 +120,7 @@ public class GameStateManager : MonoBehaviour
     }
 
     public void LoadMenu()
-    {
+    {        
         SceneManager.LoadScene("Menu");
     }
 

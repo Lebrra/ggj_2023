@@ -5,8 +5,8 @@ using UnityEngine;
 public class LumberjackAudioMgr : MonoBehaviour
 {
     public const int MAX_AUDIO_SOURCES = 16;
-    public const int MAX_WALK_SOURCES = 4;
-    public const int MAX_CHOP_SOURCES = 4;
+    public const int MAX_WALK_SOURCES = 16;
+    public const int MAX_CHOP_SOURCES = 16;
     public static LumberjackAudioMgr instance;
 
     public enum LumbejackState {idling, walking, chopping, dead};
@@ -47,15 +47,15 @@ public class LumberjackAudioMgr : MonoBehaviour
         if (soundIndex == Sounds.chopping && chopCount < MAX_CHOP_SOURCES)
         {
             chopCount++;
-            source.pitch = source.pitch * (Random.Range(-1.1f, 1.1f));
-            source.volume = (float)0.25;
+            source.pitch += source.pitch * (Random.Range(-0.1f, 0.1f));
+            source.volume = (float)0.3;
             source.Play();
         }
         if (soundIndex == Sounds.walking && walkCount < MAX_WALK_SOURCES)
         {
             walkCount++;
-            source.pitch = source.pitch * (Random.Range(-1.1f, 1.1f));
-            source.volume = (float)0.25;
+            source.pitch += source.pitch * (Random.Range(-0.1f, 0.1f));
+            source.volume = (float)(0.9);
             source.Play();
         }
 
@@ -111,7 +111,7 @@ public class LumberjackAudioMgr : MonoBehaviour
                         _source.Stop();
                     }
                 }
-                entry.Value.current = entry.Value.next; // is this persisted?
+                entry.Value.current = entry.Value.next;
             }
         }
     }
@@ -128,12 +128,20 @@ public class LumberjackAudioMgr : MonoBehaviour
         return _tempId;
     }
 
+    public void StopAllSounds()
+    {
+        foreach (KeyValuePair<int,AudioSource> entry in Sources)
+        {
+            Sources[entry.Key].Stop();
+        }
+    }
+
     public void SetLumberjackState(int id, LumberjackAudioMgr.LumbejackState state)
     {
         if(LJStates.ContainsKey(id))
         {
            Lumberjack _lj = LJStates[id];
-           if (_lj.current != _lj.next)
+           if (_lj.current != state)
            {
                 _lj.next = state;
            }
